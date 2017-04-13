@@ -12,6 +12,7 @@ import com.iths1122.constant.ReturnType;
 import com.iths1122.jpa.AlbumRepository;
 import com.iths1122.model.HsAlbum;
 import com.iths1122.service.AlbumService;
+import com.iths1122.utils.StringUtils;
 import com.iths1122.utils.UUIDUtils;
 
 /**
@@ -55,6 +56,15 @@ public class AlbumServiceImpl implements AlbumService{
 	@Override
 	public String delete(String id) {
 		albumRepository.delete(id);
+		return ReturnType.SUCCESS;
+	}
+
+	@Override
+	public String update(HsAlbum album) {
+		//一定要禁止id不存在的情况
+		if(StringUtils.isEmpty(album.getAlbumId())) return ReturnType.ERROR;
+		
+		albumRepository.update(album.getAlbumName() , album.getDescription(),album.getAlbumId());
 		return ReturnType.SUCCESS;
 	}
 	

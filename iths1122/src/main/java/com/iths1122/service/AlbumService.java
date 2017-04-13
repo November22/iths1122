@@ -37,4 +37,11 @@ public interface AlbumService {
 	 * @return
 	 */
 	public String delete(String id);
+	
+	/**
+	 * 修改相册
+	 * @param album
+	 * @return
+	 */
+	public String update(HsAlbum album);
 }

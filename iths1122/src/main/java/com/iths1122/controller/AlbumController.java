@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.iths1122.constant.ReturnType;
 import com.iths1122.model.HsAlbum;
 import com.iths1122.service.AlbumService;
 
@@ -62,5 +61,18 @@ public class AlbumController {
 	@RequestMapping("/delete")
 	public String delete(String id){
 		return albumService.delete(id);
+	}
+	
+	/**
+	 * 修改相册
+	 * 		&albumName=&  就算前台传入的相册名为空，
+	 * 只要有albumName= ，那么参数就是可以get的
+	 * @param album
+	 * @return
+	 */
+	@RequestMapping("/update")
+	public String update(HsAlbum album){
+		String update = albumService.update(album);
+		return update;
 	}
 }
