@@ -15,7 +15,7 @@ public interface AlbumService {
 	 * 查找所有
 	 * @return
 	 */
-	public List<HsAlbum> FindAll();
+	public List<HsAlbum> FindAllByUserId(String userId);
 	
 	/**
 	 * 根据id查找

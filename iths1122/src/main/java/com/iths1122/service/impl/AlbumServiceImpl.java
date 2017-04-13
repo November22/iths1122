@@ -28,8 +28,8 @@ public class AlbumServiceImpl implements AlbumService{
 	private AlbumRepository albumRepository;
 	
 	@Override
-	public List<HsAlbum> FindAll() {
-		return albumRepository.findAll();
+	public List<HsAlbum> FindAllByUserId(String userId) {
+		return albumRepository.findAllByUserId(userId);
 	}
 
 	@Override

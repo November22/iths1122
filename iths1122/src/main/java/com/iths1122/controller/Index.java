@@ -43,9 +43,9 @@ public class Index {
 		return "success";
 	}
 	
-//	@RequestMapping("/albumAll")
+	@RequestMapping("/albumAll")
 	public List<HsAlbum> albumAll(){
-		List<HsAlbum> findAll = albumRepository.findAll();
+		List<HsAlbum> findAll = albumRepository.findAllByUserId("u1");
 		return findAll;
 	}
 	

@@ -24,12 +24,11 @@ public class AlbumController {
 	
 	/**
 	 * 查找对应用户的所有相册
-	 * ##############修改##################
 	 * @return
 	 */
 	@RequestMapping("/all")
-	public List<HsAlbum> albumAll(String userId){
-		List<HsAlbum> albums = albumService.FindAll();
+	public List<HsAlbum> albumAll(String id){
+		List<HsAlbum> albums = albumService.FindAllByUserId(id);
 		return albums;
 	}
 	
