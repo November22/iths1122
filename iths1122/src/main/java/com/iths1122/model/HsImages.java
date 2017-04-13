@@ -3,8 +3,15 @@ package com.iths1122.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Model class of 图片表.
@@ -13,6 +20,7 @@ import javax.persistence.Id;
  * @version $Id$
  */
 @Entity
+@Table(name = "hs_images")
 public class HsImages implements Serializable {
 
 	/** serialVersionUID. */
@@ -32,6 +40,9 @@ public class HsImages implements Serializable {
 	private Date uploadTime;
 
 	/** 相册. */
+	@ManyToOne(cascade = {CascadeType.MERGE , CascadeType.REFRESH} , fetch = FetchType.LAZY , optional = false )
+	@JoinColumn(name = "album_id")
+	@JsonIgnore
 	private HsAlbum hsAlbum;
 
 	/**

@@ -5,9 +5,13 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 
 /**
  * Model class of 相册.
@@ -16,6 +20,7 @@ import javax.persistence.OneToMany;
  * @version $Id$
  */
 @Entity
+@Table(name = "hs_album")
 public class HsAlbum implements Serializable {
 
 	/** serialVersionUID. */
@@ -24,6 +29,8 @@ public class HsAlbum implements Serializable {
 	/** 主键. */
 	@Id
 	private String albumId;
+	
+	private String albumName;
 
 	/** 相册描述. */
 	private String description;
@@ -38,7 +45,7 @@ public class HsAlbum implements Serializable {
 	private String userId;
 
 	/** The set of 图片表. */
-	@OneToMany()
+	@OneToMany(cascade = CascadeType.ALL ,fetch = FetchType.LAZY ,mappedBy = "hsAlbum")
 	private Set<HsImages> hsImagesSet;
 
 	/**
@@ -206,6 +213,14 @@ public class HsAlbum implements Serializable {
 			return false;
 		}
 		return true;
+	}
+
+	public String getAlbumName() {
+		return albumName;
+	}
+
+	public void setAlbumName(String albumName) {
+		this.albumName = albumName;
 	}
 
 }
