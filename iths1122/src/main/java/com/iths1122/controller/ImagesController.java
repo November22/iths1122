@@ -22,11 +22,12 @@ public class ImagesController {
 	private ImagesService imagesService;
 	
 	/**
-	 * 查找所有相片
+	 * 查找对应相册的所有相片
+	 * ##############修改##################
 	 * @return
 	 */
 	@RequestMapping("/all")
-	public List<HsImages> all(){
+	public List<HsImages> all(String albumId){
 		return imagesService.findAll();
 	}
 	
@@ -42,31 +43,34 @@ public class ImagesController {
 	
 	/**
 	 * 上传一张图片
+	 * ##############修改##################
 	 * @param hsImages
 	 * @return
 	 */
 	@RequestMapping("/insert")
-	public String insert(HsImages hsImages , String albumId){
+	public String insert(HsImages hsImages , String albumId , String userId){
 		return imagesService.insert(hsImages , albumId);
 	}
 	
 	/**
 	 * 删除一张图片
+	 * ##############修改##################
 	 * @param id
 	 * @return
 	 */
 	@RequestMapping("/delete")
-	public String delete(String id){
+	public String delete(String id , String albumId , String uesrId){
 		return imagesService.delete(id);
 	}
 	
 	/**
 	 * 修改图片信息
+	 * ##############修改##################
 	 * @param hsImages
 	 * @return
 	 */
 	@RequestMapping("/update")
-	public String update(HsImages hsImages ){
+	public String update(HsImages hsImages ,String albumId , String userId ){
 		return imagesService.update(hsImages);
 	}
 }

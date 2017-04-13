@@ -23,11 +23,12 @@ public class AlbumController {
 	private AlbumService albumService;
 	
 	/**
-	 * 查找所有相册
+	 * 查找对应用户的所有相册
+	 * ##############修改##################
 	 * @return
 	 */
 	@RequestMapping("/all")
-	public List<HsAlbum> albumAll(){
+	public List<HsAlbum> albumAll(String userId){
 		List<HsAlbum> albums = albumService.FindAll();
 		return albums;
 	}
@@ -45,21 +46,23 @@ public class AlbumController {
 	
 	/**
 	 * 插入一个相册
+	 * ##############修改##################
 	 * @param album
 	 * @return
 	 */
 	@RequestMapping("/insert")
-	public String insert(HsAlbum album){
+	public String insert(HsAlbum album ,String userId){
 		return albumService.insert(album);
 	}
 	
 	/**
 	 * 删除一个相册，同时删除图片
+	 * ##############修改##################
 	 * @param id
 	 * @return
 	 */
 	@RequestMapping("/delete")
-	public String delete(String id){
+	public String delete(String id , String userId){
 		return albumService.delete(id);
 	}
 	
@@ -67,11 +70,12 @@ public class AlbumController {
 	 * 修改相册
 	 * 		&albumName=&  就算前台传入的相册名为空，
 	 * 只要有albumName= ，那么参数就是可以get的
+	 * ##############修改##################
 	 * @param album
 	 * @return
 	 */
 	@RequestMapping("/update")
-	public String update(HsAlbum album){
+	public String update(HsAlbum album , String userId){
 		String update = albumService.update(album);
 		return update;
 	}
