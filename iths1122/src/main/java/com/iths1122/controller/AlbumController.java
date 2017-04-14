@@ -1,6 +1,5 @@
 package com.iths1122.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,13 +26,12 @@ public class AlbumController {
 	
 	/**
 	 * 查找对应用户的所有相册
+	 * 用户的ID从session去，查询是谁都可以的
 	 * @return
 	 */
 	@RequestMapping("/all")
-	public List<HsAlbum> albumAll(HttpServletRequest request){
-		String result = GetUserId.getUserId(request);
-		if(result.equals("error")) return new ArrayList<HsAlbum>();
-		List<HsAlbum> albums = albumService.FindAllByUserId(result);
+	public List<HsAlbum> albumAll(String userId){
+		List<HsAlbum> albums = albumService.FindAllByUserId(userId);
 		return albums;
 	}
 	
