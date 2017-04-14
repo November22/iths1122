@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import scala.annotation.meta.setter;
-
 import com.iths1122.constant.ReturnType;
 import com.iths1122.jpa.AlbumRepository;
 import com.iths1122.jpa.ImagesRepository;
@@ -40,17 +38,20 @@ public class ImagesServiceImpl implements ImagesService{
 	}
 
 	@Override
-	public List<HsImages> findAll() {
-		return imagesRepository.findAll();
+	public List<HsImages> findAll(String albumId) {
+		return imagesRepository.findAllByAlbumId(albumId);
 	}
 
 	@Override
-	public String insert(HsImages hsImages , String albumId) {
+	public String insert(HsImages hsImages , String albumId , String userId) {
 		//补全属性
 		hsImages.setImageId(UUIDUtils.getId());
 		hsImages.setUploadTime(new Date());
-		//album对象必须是根据相册对象的id查询出来的
-		HsAlbum album = albumRepository.findOne(albumId);
+		//album对象必须是根据相册对象的id和用户的ID查询出来的
+		HsAlbum album = albumRepository.findByAlbumIdAndUesrId(albumId, userId);
+		//查出对象为空，则不能上传图片
+		if(album == null) return ReturnType.ERROR;
+		
 		hsImages.setHsAlbum(album);
 		
 		imagesRepository.save(hsImages);
@@ -58,17 +59,29 @@ public class ImagesServiceImpl implements ImagesService{
 	}
 
 	@Override
-	public String delete(String id) {
-		imagesRepository.delete(id);
+	public String delete(String imgId , String albumId , String userId) {
+		HsAlbum album = albumRepository.findByAlbumIdAndUesrId(albumId, userId);
+		if(album == null) return ReturnType.ERROR;
+		
+		imagesRepository.deleteByImageIdAndAlbumId(imgId , albumId);
 		return ReturnType.SUCCESS;
 	}
+	
 
+	/**
+	 * 只能修改图片的名称
+	 */
 	@Override
-	public String update(HsImages images) {
+	public String update(HsImages images , String albumId , String userId) {
 		
 		if(StringUtils.isEmpty(images.getImageId())) return ReturnType.ERROR;
 		
-		imagesRepository.update(images.getImageName(), images.getImageUrl(), images.getImageId());
+		HsAlbum album = albumRepository.findByAlbumIdAndUesrId(albumId, userId);
+		if(album == null) return ReturnType.ERROR;
+		
+		//修改图片名称
+		imagesRepository.updateImagsNameByImageIdAndAlbumId(images.getImageName(), images.getImageId(), albumId);
+		
 		return ReturnType.SUCCESS;
 	}
 }

@@ -34,9 +34,10 @@ public interface AlbumService {
 	/**
 	 * 删除一个相册
 	 * @param id
+	 * @param userId 
 	 * @return
 	 */
-	public String delete(String id);
+	public String delete(String id, String userId);
 	
 	/**
 	 * 修改相册

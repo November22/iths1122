@@ -16,6 +16,22 @@ import com.iths1122.model.HsAlbum;
  */
 public interface AlbumRepository extends JpaRepository<HsAlbum, String>{
 	
+	@Query("select album from HsAlbum album where album.albumId = :albumId and album.userId = :userId" )
+	public HsAlbum findByAlbumIdAndUesrId(@Param("albumId")String albumId , @Param("userId")String userId);
+	
+	
+	/**
+	 * 根据用户的ID和对应的相册ID，删除一个相册
+	 * ****考虑如果拿到用户的ID和相册名，那么都可以删除相册了，如果进行校验
+	 * 如果将user的id通过session来获取，不通过前台传入，那么，前台传入的userid就是无效的
+	 * @param albumId
+	 * @param userId
+	 * @return
+	 */
+	@Modifying
+	@Query(value = "delete from hs_album where user_id = :userId and album_id = :albumId" , nativeQuery = true)
+	public int deleteAlbumByUserIdAndAlbumId(@Param("albumId")String albumId , @Param("userId")String userId);
+	
 	/**
 	 * 查找属于该用户的所有相册
 	 * @param userId
@@ -35,8 +51,8 @@ public interface AlbumRepository extends JpaRepository<HsAlbum, String>{
 	@Query("update HsAlbum album "
 			+ " set "
 			+ " album.albumName = :albumName ,album.description = :description "
-			+ " where album.albumId = :albumId")
+			+ " where album.albumId = :albumId and album.userId = :userId")
 	public int update(@Param("albumName")String albumName ,
-			@Param("description")String description ,@Param("albumId")String albumId);
+			@Param("description")String description ,@Param("albumId")String albumId , @Param("userId")String userId);
 	
 }

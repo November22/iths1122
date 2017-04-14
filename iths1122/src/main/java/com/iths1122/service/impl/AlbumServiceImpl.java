@@ -46,7 +46,7 @@ public class AlbumServiceImpl implements AlbumService{
 		album.setVisitCount(0);
 		
 		//////目前用户ID都设置为u1//////
-		album.setUserId("u1");
+//		album.setUserId("u1");
 		albumRepository.save(album);
 		
 		
@@ -54,8 +54,8 @@ public class AlbumServiceImpl implements AlbumService{
 	}
 
 	@Override
-	public String delete(String id) {
-		albumRepository.delete(id);
+	public String delete(String id , String userId) {
+		albumRepository.deleteAlbumByUserIdAndAlbumId(id , userId);
 		return ReturnType.SUCCESS;
 	}
 
@@ -64,7 +64,7 @@ public class AlbumServiceImpl implements AlbumService{
 		//一定要禁止id不存在的情况
 		if(StringUtils.isEmpty(album.getAlbumId())) return ReturnType.ERROR;
 		
-		albumRepository.update(album.getAlbumName() , album.getDescription(),album.getAlbumId());
+		albumRepository.update(album.getAlbumName() , album.getDescription(),album.getAlbumId() ,album.getUserId() );
 		return ReturnType.SUCCESS;
 	}
 	

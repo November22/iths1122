@@ -2,12 +2,15 @@ package com.iths1122.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.iths1122.model.HsImages;
 import com.iths1122.service.ImagesService;
+import com.iths1122.utils.GetUserId;
 
 /**
  * 图片操作
@@ -28,7 +31,7 @@ public class ImagesController {
 	 */
 	@RequestMapping("/all")
 	public List<HsImages> all(String albumId){
-		return imagesService.findAll();
+		return imagesService.findAll(albumId);
 	}
 	
 	/**
@@ -37,30 +40,36 @@ public class ImagesController {
 	 * @return
 	 */
 	@RequestMapping("/findOne")
-	public HsImages findOne(String id){
-		return imagesService.findImageById(id);
+	public HsImages findOne(String imageId){
+		return imagesService.findImageById(imageId);
 	}
 	
 	/**
 	 * 上传一张图片
-	 * ##############修改##################
 	 * @param hsImages
 	 * @return
 	 */
 	@RequestMapping("/insert")
-	public String insert(HsImages hsImages , String albumId , String userId){
-		return imagesService.insert(hsImages , albumId);
+	public String insert(HsImages hsImages , String albumId , HttpServletRequest request){
+		
+		String result = GetUserId.getUserId(request);
+		if(result.equals("error")) return result;
+		
+		return imagesService.insert(hsImages , albumId ,result);
 	}
 	
 	/**
 	 * 删除一张图片
-	 * ##############修改##################
 	 * @param id
 	 * @return
 	 */
 	@RequestMapping("/delete")
-	public String delete(String id , String albumId , String uesrId){
-		return imagesService.delete(id);
+	public String delete(String imageId , String albumId , HttpServletRequest request){
+		
+		String result = GetUserId.getUserId(request);
+		if(result.equals("error")) return result;
+		
+		return imagesService.delete(imageId ,albumId ,result);
 	}
 	
 	/**
@@ -70,7 +79,11 @@ public class ImagesController {
 	 * @return
 	 */
 	@RequestMapping("/update")
-	public String update(HsImages hsImages ,String albumId , String userId ){
-		return imagesService.update(hsImages);
+	public String updateImageName(HsImages hsImages ,String albumId , HttpServletRequest request ){
+		
+		String result = GetUserId.getUserId(request);
+		if(result.equals("error")) return result;
+		
+		return imagesService.update(hsImages , albumId, result);
 	}
 }
