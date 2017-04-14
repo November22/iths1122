@@ -40,9 +40,9 @@ public class HsImages implements Serializable {
 	private Date uploadTime;
 
 	/** 相册. */
-	@ManyToOne(cascade = {CascadeType.MERGE , CascadeType.REFRESH} , fetch = FetchType.LAZY , optional = false )
-	@JoinColumn(name = "album_id")
 	@JsonIgnore
+	@JoinColumn(name = "album_id")
+	@ManyToOne(cascade = {CascadeType.MERGE , CascadeType.REFRESH} , fetch = FetchType.LAZY , optional = false )
 	private HsAlbum hsAlbum;
 
 	/**

@@ -4,9 +4,12 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  * Model class of hs_visit_count.
@@ -15,6 +18,7 @@ import javax.persistence.OneToMany;
  * @version $Id$
  */
 @Entity
+@Table(name = "hs_visit_count")
 public class HsVisitCount implements Serializable {
 
 	/** serialVersionUID. */
@@ -31,7 +35,7 @@ public class HsVisitCount implements Serializable {
 	private String ip;
 
 	/** The set of hs_leave_word. */
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL ,fetch = FetchType.LAZY ,mappedBy = "hsVisitCount")
 	private Set<HsLeaveWord> hsLeaveWordSet;
 
 	/**

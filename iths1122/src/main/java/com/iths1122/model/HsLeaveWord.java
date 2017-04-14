@@ -2,8 +2,14 @@ package com.iths1122.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Model class of hs_leave_word.
@@ -25,9 +31,15 @@ public class HsLeaveWord implements Serializable {
 	private String content;
 
 	/** hs_visit_count. */
+	@JsonIgnore
+	@JoinColumn(name = "vc_id")
+	@ManyToOne(cascade = {CascadeType.MERGE , CascadeType.REFRESH} , fetch = FetchType.LAZY , optional = false )
 	private HsVisitCount hsVisitCount;
 
 	/** 字典表. */
+	@JsonIgnore
+	@JoinColumn(name = "dictionary_id")
+	@ManyToOne(cascade = {CascadeType.MERGE , CascadeType.REFRESH} , fetch = FetchType.LAZY , optional = false )
 	private HsDictionary hsDictionary;
 
 	/** 被留言对象ID. */

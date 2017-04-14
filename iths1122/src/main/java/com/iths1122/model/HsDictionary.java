@@ -4,9 +4,13 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import javax.persistence.Table;
 
 /**
  * Model class of 字典表.
@@ -15,6 +19,7 @@ import javax.persistence.OneToMany;
  * @version $Id$
  */
 @Entity
+@Table(name = "hs_dictionary")
 public class HsDictionary implements Serializable {
 
 	/** serialVersionUID. */
@@ -31,11 +36,11 @@ public class HsDictionary implements Serializable {
 	private String remark;
 
 	/** The set of hs_leave_word. */
-	@OneToMany
+	@OneToMany(cascade = CascadeType.DETACH , fetch = FetchType.LAZY , mappedBy = "hsDictionary")
 	private Set<HsLeaveWord> hsLeaveWordSet;
 
 	/** The set of hs_share. */
-	@OneToMany
+	@OneToMany(cascade = CascadeType.DETACH , fetch = FetchType.LAZY , mappedBy = "hsDictionary")
 	private Set<HsShare> hsShareSet;
 
 	/**

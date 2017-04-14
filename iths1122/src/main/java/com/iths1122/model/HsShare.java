@@ -2,8 +2,15 @@ package com.iths1122.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Model class of hs_share.
@@ -12,6 +19,7 @@ import javax.persistence.Id;
  * @version $Id$
  */
 @Entity
+@Table(name = "hs_share")
 public class HsShare implements Serializable {
 
 	/** serialVersionUID. */
@@ -22,6 +30,9 @@ public class HsShare implements Serializable {
 	private String shareId;
 
 	/** 字典表. */
+	@JsonIgnore
+	@JoinColumn(name = "dictionary_id")
+	@ManyToOne(cascade = {CascadeType.MERGE , CascadeType.REFRESH} , fetch = FetchType.LAZY , optional = false)
 	private HsDictionary hsDictionary;
 
 	/** 分享的内容. */
