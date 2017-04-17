@@ -3,3 +3,7 @@
 #登录后用户的id存储在session中，不通过前台传入，那么就没有问题了
 
 #查找信息的用户ID从前台输入，如果涉及到修改操作，用户的ID从session中获取
+
+#心得分享没有设计创建时间 --添加（create_time 列 ，timestamp类型）
+
+#share表的列conten_form  没有加 t,单词写错

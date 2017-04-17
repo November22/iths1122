@@ -1,6 +1,7 @@
 package com.iths1122.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -39,11 +40,12 @@ public class HsShare implements Serializable {
 	private String content;
 
 	/** 内容出处. */
-	private String contenFrom;
+	private String contentFrom;
 
 	/** 所属用户. */
 	private String userId;
 
+	private Date createTime;
 	/**
 	 * Constructor.
 	 */
@@ -113,8 +115,8 @@ public class HsShare implements Serializable {
 	 * @param contenFrom
 	 *            内容出处
 	 */
-	public void setContenFrom(String contenFrom) {
-		this.contenFrom = contenFrom;
+	public void setContentFrom(String contentFrom) {
+		this.contentFrom = contentFrom;
 	}
 
 	/**
@@ -122,8 +124,8 @@ public class HsShare implements Serializable {
 	 * 
 	 * @return 内容出处
 	 */
-	public String getContenFrom() {
-		return this.contenFrom;
+	public String getContentFrom() {
+		return this.contentFrom;
 	}
 
 	/**
@@ -179,6 +181,14 @@ public class HsShare implements Serializable {
 			return false;
 		}
 		return true;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
 	}
 
 }
