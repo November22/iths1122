@@ -1,59 +1,41 @@
 package com.iths1122.controller;
 
-import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.iths1122.jpa.AlbumRepository;
-import com.iths1122.jpa.ImagesRepository;
-import com.iths1122.jpa.UserInfoRepository;
-import com.iths1122.model.HsAlbum;
-import com.iths1122.model.HsImages;
-import com.iths1122.model.HsUserinfo;
+import com.iths1122.service.VisitCountService;
+import com.iths1122.utils.GetIPUtils;
 
+/**
+ * 
+ * 访问者访问主页
+ * @author iths
+ *
+ */
 @RestController
 public class Index {
 	
 	@Autowired
-	private UserInfoRepository userInfoRepository;
+	private VisitCountService countService;
 	
-	
-	@Autowired
-	private AlbumRepository albumRepository;
-	
-	@Autowired
-	private ImagesRepository imagesRepository;
-	
+	/**
+	 * 用户访问网站主页
+	 * --显示主页信息
+	 * --获取用户IP，统计数据
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/")
-	public String index(){
+	public String index(HttpServletRequest request){
+		//获取访问者的IP
+		String ipAddr = GetIPUtils.getIpAddr(request);
+		//统计或者检查用户是否已经访问
+		countService.countOrCheckVisit(ipAddr);
 		return "index";
 	}
-	
-	@RequestMapping("/all")
-	public List<HsUserinfo> all(){
-		List<HsUserinfo> list = userInfoRepository.findAll();
-		return list;
-	}
-	
-	@RequestMapping("/insert")
-	public String insert(HsUserinfo userinfo){
-		userInfoRepository.save(userinfo);
-		return "success";
-	}
-	
-	@RequestMapping("/albumAll")
-	public List<HsAlbum> albumAll(){
-		List<HsAlbum> findAll = albumRepository.findAllByUserId("u1");
-		return findAll;
-	}
-	
-	@RequestMapping("/imageAll")
-	public List<HsImages> imageAll(){
-		List<HsImages> findAll = imagesRepository.findAll();
-		return findAll;
-	}
-	
 }
 
