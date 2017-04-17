@@ -7,3 +7,6 @@
 #心得分享没有设计创建时间 --添加（create_time 列 ，timestamp类型）
 
 #share表的列conten_form  没有加 t,单词写错
+
+#在留言表添加列，user_id，表示这个留言是针对哪个用户的内容，对于相册，文章，分享，都有user_id列，
+所以在提交留言的时候存入user_id

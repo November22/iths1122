@@ -12,7 +12,7 @@ import java.security.NoSuchAlgorithmException;
  */
 public class EncryptUtils {
 	//秘钥
-	private static String suffix = LoadPropertiesDataUtils.getValue("weichat.appsecret");
+	private static String suffix = LoadPropertiesDataUtils.getValue("private_key");
 	
 	/**
      * md5加密

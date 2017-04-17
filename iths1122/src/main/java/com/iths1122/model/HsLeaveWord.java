@@ -45,6 +45,7 @@ public class HsLeaveWord implements Serializable {
 	/** 被留言对象ID. */
 	private String belongId;
 
+	private String userId;
 	/**
 	 * Constructor.
 	 */
@@ -180,6 +181,14 @@ public class HsLeaveWord implements Serializable {
 			return false;
 		}
 		return true;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 }
